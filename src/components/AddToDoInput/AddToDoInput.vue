@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import plus from "@sit-onyx/icons/plus.svg?raw";
 import { nextTick, ref } from "vue";
-import { OnyxInput, OnyxButton } from "sit-onyx";
+import { OnyxInput, OnyxButton, OnyxIconButton } from "sit-onyx";
 import { useToDosStore } from "@/stores/todos";
 import { useUserStore } from "@/stores/user";
 
@@ -23,10 +23,12 @@ function setFocus() {
 /**
  * swap states between Button and Input component
  */
-function onShowHideInput() {
-  showInput.value = !showInput.value;
-  if (showInput.value) {
-    setFocus();
+function onShowHideInput(e) {
+  if (e?.relatedTarget?.name !== "addToDoInputBtn") {
+    showInput.value = !showInput.value;
+    if (showInput.value) {
+      setFocus();
+    }
   }
 }
 
@@ -52,26 +54,48 @@ function onSubmit() {
       :icon="plus"
       label="add Task"
     ></OnyxButton>
-    <OnyxInput
-      key="input"
-      v-show="showInput"
-      @focusout="onShowHideInput"
-      @keydown.enter="onSubmit"
-      class="addToDo__input"
-      v-model="value"
-      placeholder="Add a task"
-      type="text"
-    />
+    <div class="addToDo__inputContainer">
+      <OnyxInput
+        v-show="showInput"
+        @focusout="onShowHideInput"
+        @keydown.enter="onSubmit"
+        class="addToDo__input"
+        v-model="value"
+        placeholder="Add a task"
+        type="text"
+      />
+      <OnyxIconButton
+        name="addToDoInputBtn"
+        @focusout="onShowHideInput"
+        v-show="showInput"
+        @click="onSubmit"
+        class="addToDo__inputBtn"
+        :icon="plus"
+      ></OnyxIconButton>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+@use "sit-onyx/breakpoints.scss";
+
 .addToDo {
   width: 100%;
-  height: 2rem;
   &__btn {
     width: 100%;
     justify-content: start;
+  }
+  &__inputContainer {
+    display: flex;
+    align-items: center;
+  }
+  &__inputBtn {
+    display: none;
+    margin-left: var(--onyx-spacing-xs);
+
+    @include breakpoints.screen(max, md) {
+      display: flex;
+    }
   }
   &__input {
     width: 100%;
