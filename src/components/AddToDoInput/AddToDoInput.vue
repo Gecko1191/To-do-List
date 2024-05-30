@@ -5,6 +5,10 @@ import { OnyxInput, OnyxButton, OnyxIconButton } from "sit-onyx";
 import { useToDosStore } from "@/stores/todos";
 import { useUserStore } from "@/stores/user";
 
+const props = defineProps<{
+  flagAsImportant?: boolean;
+}>();
+
 const showInput = ref(false);
 const value = ref();
 const toDosStore = useToDosStore();
@@ -23,7 +27,7 @@ function setFocus() {
 /**
  * swap states between Button and Input component
  */
-function onShowHideInput(e) {
+function onShowHideInput(e: any) {
   if (e?.relatedTarget?.name !== "addToDoInputBtn") {
     showInput.value = !showInput.value;
     if (showInput.value) {
@@ -38,8 +42,9 @@ function onShowHideInput(e) {
 function onSubmit() {
   const userId = userStore.user?.id;
   if (value.value && userId) {
-    toDosStore.createToDo(value.value);
+    toDosStore.createToDo(value.value, props?.flagAsImportant);
   }
+  //reset input after add in a toDo
   value.value = "";
 }
 </script>
