@@ -15,6 +15,10 @@ const isOpen = defineModel<boolean>();
 const toDosStore = useToDosStore();
 const toDosArchiveStore = useToDosArchiveStore();
 
+/**
+ * create the label for a given count
+ * @param count
+ */
 function countLabel(count: number) {
   return count > 0 ? `( ${count} )` : "";
 }
