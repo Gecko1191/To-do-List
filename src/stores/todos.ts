@@ -1,75 +1,143 @@
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import { ref, computed } from "vue";
+import { defineStore } from "pinia";
+import { useToDosArchiveStore } from "@/stores/toDosArchive";
+import { useUserStore } from "@/stores/user";
+import type { ToDoEntry } from "@/components/ToDoListItem/types";
 
-interface ToDoEntry {
-  completed: boolean;
-  title: string;
-  userId: number
-  id: number
-}
 /*
 The store for the To-Do-List entries
 
 @returns the To-Do-List entries and the given crud operations (create, update, delete)
  */
-export const useToDosStore = defineStore('to-do-list', (userID = 1) => {
+export const useToDosStore = defineStore("toDos", () => {
+  const toDosArchiveStore = useToDosArchiveStore();
+  const toDos = ref<Array<ToDoEntry>>();
 
-  const toDos = ref<Array<ToDoEntry>>()
+  /**
+   * filter the important todos
+   */
+  const importantToDos = computed(() =>
+    toDos.value?.filter((toDo) => toDo.isImportant),
+  );
+
+  /**
+   * calc count for the important toDos
+   */
+  const importantToDosCount = computed(
+    () => importantToDos?.value?.length ?? 0,
+  );
+
+  /**
+   * calc count for the toDos
+   */
+  const toDosCount = computed(() => toDos?.value?.length ?? 0);
 
   async function initialize() {
-    fetch(`https://jsonplaceholder.typicode.com/users/${userID}/todos`)
-        .then((response) => response.json())
-        .then((json) => toDos.value = json);
+    const userStore = useUserStore();
+
+    fetch(
+      `https://jsonplaceholder.typicode.com/users/${userStore.user?.id}/todos`,
+    )
+      .then((response) => response.json())
+      .then((json) => (toDos.value = json));
   }
 
-  function createToDo(entry: ToDoEntry) {
-    // const uuid = uuidv4()
-    fetch(`https://jsonplaceholder.typicode.com/todos/${entry.id}`, {
-      method: 'POST',
-      body: JSON.stringify(entry),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-        .then((response) => response.json())
-        .then((entry: ToDoEntry) => {
-          toDos.value?.push(entry)
-        });
+  function createToDo(title: string, important?: boolean) {
+    /**
+     * normally we would call some sort of fetch 'post' to create a new toDo.
+     * and the backend would add a uuid.
+     */
+    const userStore = useUserStore();
+    if (userStore.user?.id) {
+      /**
+       * needed out of demo purposes
+       */
+      function calcId() {
+        let id = 0;
+        do {
+          id++;
+        } while (toDos.value?.find((toDo) => toDo.id === id));
+        return id;
+      }
+
+      /**
+       * use unshift to add entry on top of the list
+       */
+      toDos.value?.unshift({
+        title: title,
+        userId: userStore.user?.id,
+        isImportant: important ?? false,
+        completed: false,
+        id: calcId(),
+      });
+    }
   }
 
+  /**
+   * delete the given ToDo entry
+   * @param id
+   */
   function deleteToDo(id: number) {
+    //this would normally be in some sort of service file and could be reused
     fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
     }).then(() => {
       //either we update the toDos or invalidate the data to reload the all toDos
-      toDos.value = toDos.value?.filter((toDo) => toDo.id !== id)
+      toDos.value = toDos.value?.filter((toDo) => toDo.id !== id);
     });
   }
 
-  function updateToDo(entry: ToDoEntry) {
-    fetch(`https://jsonplaceholder.typicode.com/todos/${entry.id}`, {
-      method: 'PUT',
-      body: JSON.stringify({
-        ...entry,
-        title: 'name change'
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-        .then((response) => response.json())
-        .then((updatedEntry: ToDoEntry) => {
-          //either we update the toDos or invalidate the data to reload the all toDos
-          toDos.value = toDos.value?.map((toDo) => {
-            if(toDo.id === updatedEntry.id){
-              return updatedEntry
-            } else {
-              return toDo
-            }
-          })
-        });
+  /**
+   * Move the given ToDo to the archive store
+   * @param toDoToMove
+   */
+  function moveToArchive(toDoToMove: ToDoEntry) {
+    /**
+     *  here we would also call some sort of api to move it to the archive
+     *  addToArchive would then just reload the toDosArchiveStore to refresh the data.
+     */
 
+    toDos.value = toDos.value?.filter((toDo) => toDo.id !== toDoToMove.id);
+    toDosArchiveStore.addToArchive(toDoToMove);
   }
 
-  return {initialize, todos: toDos, createToDo, deleteToDo, updateToDo }
-})
+  /**
+   * Mark the given ToDo as completed
+   * @param toDoToUpdate
+   */
+  function markUnMarkCompleted(toDoToUpdate: ToDoEntry) {
+    toDos.value = toDos.value?.map((toDo) => {
+      if (toDo.id === toDoToUpdate.id) {
+        return { ...toDoToUpdate, completed: !toDoToUpdate.completed };
+      } else {
+        return toDo;
+      }
+    });
+  }
+  /**
+   * Mark the given ToDo as important
+   * @param toDoToUpdate
+   */
+  function markUnMarkImportant(toDoToUpdate: ToDoEntry) {
+    toDos.value = toDos.value?.map((toDo) => {
+      if (toDo.id === toDoToUpdate.id) {
+        return { ...toDoToUpdate, isImportant: !toDoToUpdate.isImportant };
+      } else {
+        return toDo;
+      }
+    });
+  }
+
+  return {
+    initialize,
+    toDos,
+    importantToDos,
+    createToDo,
+    deleteToDo,
+    moveToArchive,
+    markUnMarkCompleted,
+    markUnMarkImportant,
+    importantToDosCount,
+    toDosCount,
+  };
+});

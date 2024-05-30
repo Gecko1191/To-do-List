@@ -5,12 +5,15 @@ import type { user } from "@/components/UserMenu/types";
 /*
 The store for the Current User
 
-@returns the current user and getUser function
+@returns currentUser, loadUser
  */
 export const useUserStore = defineStore("user", () => {
   const user = ref<user>();
 
-  async function getUser() {
+  /**
+   * load the current user
+   */
+  async function loadUser() {
     /*
       in a real word example we could call something like users/me
       to get the current user in an sso context
@@ -21,5 +24,5 @@ export const useUserStore = defineStore("user", () => {
       .then((json) => (user.value = json));
   }
 
-  return { user, getUser };
+  return { user, getUser: loadUser };
 });
