@@ -1,85 +1,50 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterView } from "vue-router";
+import { ref } from "vue";
+import { OnyxAppLayout, OnyxButton, OnyxNavBar } from "sit-onyx";
+
+import Sidebar from "@/components/Sidebar/Sidebar.vue";
+import { useDark } from "@vueuse/core";
+import UserMenu from "@/components/UserMenu/UserMenu.vue";
+
+const isDark = useDark();
+const isSidebarOpen = ref(true);
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <OnyxAppLayout :model-value="isDark">
+    <template #navBar>
+      <OnyxNavBar app-name="My To Do List App" icon>
+        <template #contextArea>
+          <UserMenu />
+        </template>
+      </OnyxNavBar>
+    </template>
+    <template v-slot:default>
+      <div class="default-content">
+        <Sidebar v-if="isSidebarOpen" v-model="isSidebarOpen"> </Sidebar>
+        <RouterView />
+      </div>
+      <OnyxButton
+        v-if="!isSidebarOpen"
+        label="Open Sidebar"
+        class="floating-button"
+        @click="isSidebarOpen = !isSidebarOpen"
+      />
+    </template>
+  </OnyxAppLayout>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<style>
+.floating-button {
+  position: sticky;
+  bottom: var(--onyx-spacing-md);
+  left: var(--onyx-spacing-md);
+  z-index: var(--onyx-z-index-notification);
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+.default-content {
+  height: 100%;
+  display: flex;
+  overflow: hidden;
 }
 </style>
