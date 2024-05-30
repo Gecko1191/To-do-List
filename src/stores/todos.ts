@@ -75,15 +75,15 @@ export const useToDosStore = defineStore("toDos", () => {
 
   /**
    * delete the given ToDo entry
-   * @param id
+   * @param toDoToDelete
    */
-  function deleteToDo(id: number) {
+  function deleteToDo(toDoToDelete: ToDoEntry) {
     //this would normally be in some sort of service file and could be reused
-    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+    fetch(`https://jsonplaceholder.typicode.com/todos/${toDoToDelete.id}`, {
       method: "DELETE",
     }).then(() => {
       //either we update the toDos or invalidate the data to reload the all toDos
-      toDos.value = toDos.value?.filter((toDo) => toDo.id !== id);
+      toDos.value = toDos.value?.filter((toDo) => toDo.id !== toDoToDelete.id);
     });
   }
 
@@ -99,6 +99,15 @@ export const useToDosStore = defineStore("toDos", () => {
 
     toDos.value = toDos.value?.filter((toDo) => toDo.id !== toDoToMove.id);
     toDosArchiveStore.addToArchive(toDoToMove);
+  }
+
+  /**
+   * add a toDo entry from outside
+   * if we would call an api from the archive store to reload the data this function would not be needed
+   * @param toDoToAdd
+   */
+  function addToDo(toDoToAdd: ToDoEntry) {
+    toDos.value?.unshift(toDoToAdd);
   }
 
   /**
@@ -135,6 +144,7 @@ export const useToDosStore = defineStore("toDos", () => {
     createToDo,
     deleteToDo,
     moveToArchive,
+    addToDo,
     markUnMarkCompleted,
     markUnMarkImportant,
     importantToDosCount,
