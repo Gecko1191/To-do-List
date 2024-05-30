@@ -4,7 +4,11 @@ import { useUserStore } from "@/stores/user";
 import logout from "@sit-onyx/icons/tool-table.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 
+/**
+ * wrapper to load to have all user specific call in one place
+ */
 const userStore = useUserStore();
+//load the current user
 userStore.getUser();
 
 const userMenuOptions = [
