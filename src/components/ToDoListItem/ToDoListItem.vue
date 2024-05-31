@@ -27,62 +27,64 @@ const toDo = computed(() => props.toDo);
 </script>
 
 <template>
-  <div
-    :data-test="`toDo-${toDo.id}`"
-    v-if="toDo.title.includes(props.search ?? '')"
-    class="toDoItem"
-  >
-    <OnyxCheckbox
-      :data-test="`completedCheckbox-${toDo.id}`"
-      v-if="props.onMarkUnMarkCompleted"
-      :disabled="props.disableCompletedAndImportant"
-      @click="
-        typeof props?.onMarkUnMarkCompleted === 'function' &&
-          props?.onMarkUnMarkCompleted(toDo)
-      "
-      :modelValue="toDo.completed"
-      :value="toDo.id"
-      :label="toDo.title"
-      hideLabel
-    />
-    <OnyxIconButton
-      :data-test="`importantIconBtn-${toDo.id}`"
-      v-if="props.onMarkUnMarkImportant"
-      :disabled="props.disableCompletedAndImportant"
-      @click="props?.onMarkUnMarkImportant(toDo)"
-      :color="toDo.isImportant ? 'danger' : 'neutral'"
-      :icon="flag"
-    />
+  <Transition appear>
     <div
-      :title="toDo.title"
-      :class="{
-        'toDoItem__text-line-through': toDo.completed,
-        toItemTitle: true,
-      }"
+      :data-test="`toDo-${toDo.id}`"
+      v-if="toDo.title.includes(props.search ?? '')"
+      class="toDoItem"
     >
-      {{ toDo.title }}
+      <OnyxCheckbox
+        :data-test="`completedCheckbox-${toDo.id}`"
+        v-if="props.onMarkUnMarkCompleted"
+        :disabled="props.disableCompletedAndImportant"
+        @click="
+          typeof props?.onMarkUnMarkCompleted === 'function' &&
+            props?.onMarkUnMarkCompleted(toDo)
+        "
+        :modelValue="toDo.completed"
+        :value="toDo.id"
+        :label="toDo.title"
+        hideLabel
+      />
+      <OnyxIconButton
+        :data-test="`importantIconBtn-${toDo.id}`"
+        v-if="props.onMarkUnMarkImportant"
+        :disabled="props.disableCompletedAndImportant"
+        @click="props?.onMarkUnMarkImportant(toDo)"
+        :color="toDo.isImportant ? 'danger' : 'neutral'"
+        :icon="flag"
+      />
+      <div
+        :title="toDo.title"
+        :class="{
+          'toDoItem__text-line-through': toDo.completed,
+          toItemTitle: true,
+        }"
+      >
+        {{ toDo.title }}
+      </div>
+      <div class="actions">
+        <OnyxIconButton
+          :data-test="`moveToArchiveBtn-${toDo.id}`"
+          v-if="props.onMoveToArchive"
+          @click="props.onMoveToArchive(toDo)"
+          :icon="archive"
+        />
+        <OnyxIconButton
+          :data-test="`moveOutOfArchiveBtn-${toDo.id}`"
+          v-if="props.onMoveOutOfArchive"
+          @click="props.onMoveOutOfArchive(toDo)"
+          :icon="archiveUndo"
+        />
+        <OnyxIconButton
+          :data-test="`deleteBtn-${toDo.id}`"
+          v-if="props.onDeleteToDo"
+          @click="props.onDeleteToDo(toDo)"
+          :icon="trash"
+        />
+      </div>
     </div>
-    <div class="actions">
-      <OnyxIconButton
-        :data-test="`moveToArchiveBtn-${toDo.id}`"
-        v-if="props.onMoveToArchive"
-        @click="props.onMoveToArchive(toDo)"
-        :icon="archive"
-      />
-      <OnyxIconButton
-        :data-test="`moveOutOfArchiveBtn-${toDo.id}`"
-        v-if="props.onMoveOutOfArchive"
-        @click="props.onMoveOutOfArchive(toDo)"
-        :icon="archiveUndo"
-      />
-      <OnyxIconButton
-        :data-test="`deleteBtn-${toDo.id}`"
-        v-if="props.onDeleteToDo"
-        @click="props.onDeleteToDo(toDo)"
-        :icon="trash"
-      />
-    </div>
-  </div>
+  </Transition>
 </template>
 
 <style lang="scss" scoped>
@@ -112,5 +114,13 @@ const toDo = computed(() => props.toDo);
   &__text-line-through {
     text-decoration: line-through;
   }
+}
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 1s ease;
+}
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
