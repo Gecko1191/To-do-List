@@ -1,0 +1,30 @@
+[
+  {
+    "userId": 1,
+    "id": 1,
+    "title": "toDo",
+    "completed": false,
+    "isImportant": false
+  },
+  {
+    "userId": 1,
+    "id": 2,
+    "title": "toDo completed",
+    "completed": true,
+    "isImportant": false
+  },
+  {
+    "userId": 1,
+    "id": 3,
+    "title": "toDo important",
+    "completed": false,
+    "isImportant": true
+  },
+  {
+    "userId": 1,
+    "id": 4,
+    "title": "toDo important and completed",
+    "completed": true,
+    "isImportant": true
+  }
+]

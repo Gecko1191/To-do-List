@@ -14,7 +14,19 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
+import "./commands";
+import { createPinia, setActivePinia } from "pinia";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+beforeEach(() => {
+  // creates a fresh pinia and makes it active
+  // so it's automatically picked up by any useStore() call
+  // without having to pass it to it: `useStore(pinia)`
+  setActivePinia(createPinia());
+
+  // we set the response to be the user.json fixture
+  cy.intercept("GET", "/users/1", { fixture: "user.json" }).as("user");
+  // we set the response to be the toDos.json fixture
+  cy.intercept("GET", "/users/1/todos", { fixture: "toDos.json" }).as("toDos");
+});
