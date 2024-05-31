@@ -58,7 +58,7 @@ function onSubmit() {
       color="neutral"
       :icon="plus"
       label="add Task"
-    ></OnyxButton>
+    />
     <div class="addToDo__inputContainer">
       <OnyxInput
         data-test="addToDoInput"
@@ -77,7 +77,7 @@ function onSubmit() {
         @click="onSubmit"
         class="addToDo__inputBtn"
         :icon="plus"
-      ></OnyxIconButton>
+      />
     </div>
   </div>
 </template>

@@ -76,12 +76,12 @@ const slots = defineSlots<{
         />
       </div>
       <div v-if="slots.secondHeader" class="header__lowerContainer">
-        <slot name="secondHeader"></slot>
+        <slot name="secondHeader" />
       </div>
     </div>
     <div data-test="toDoItemContainer" class="toDoItemContainer">
       <template v-for="toDo in filteredToDos">
-        <slot name="listItem" :search="search" :toDo="toDo"></slot>
+        <slot name="listItem" :search="search" :toDo="toDo" />
       </template>
     </div>
   </div>

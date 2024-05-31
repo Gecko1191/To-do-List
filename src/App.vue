@@ -34,7 +34,7 @@ watch(userId, toDosStore?.initialize);
     <template #navBar>
       <OnyxNavBar app-name="">
         <template #appArea>
-          <OnyxIcon :icon="clipboard"></OnyxIcon>
+          <OnyxIcon :icon="clipboard" />
           <OnyxHeadline class="appHeader" is="h2"
             >My To Do List App
           </OnyxHeadline>
@@ -51,7 +51,7 @@ watch(userId, toDosStore?.initialize);
     </template>
     <template v-slot:default>
       <div class="defaultContent">
-        <Sidebar v-if="isSidebarOpen" v-model="isSidebarOpen"> </Sidebar>
+        <Sidebar v-if="isSidebarOpen" v-model="isSidebarOpen" />
         <RouterView />
       </div>
     </template>
