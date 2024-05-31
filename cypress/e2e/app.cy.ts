@@ -39,18 +39,6 @@ describe("Test the app overview", () => {
     cy.get("[data-test=toDo-4]").should("not.exist");
   });
 
-  it("collapse and open the sidebar", () => {
-    cy.visit("/");
-    cy.contains("h2", "My To Do List App ");
-    cy.wait("@toDos");
-
-    cy.contains("span", "Close").click();
-    cy.contains("h2", "My To Do List App ").should("not.exist");
-
-    cy.contains("span", "Open").click();
-    cy.contains("h2", "My To Do List App ");
-  });
-
   it("test if basic todos are shown", () => {
     cy.visit("/");
     cy.wait("@toDos");

@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import { computed, ref, watch } from "vue";
-import { OnyxAppLayout, OnyxButton, OnyxNavBar } from "sit-onyx";
+import {
+  OnyxAppLayout,
+  OnyxHeadline,
+  OnyxIcon,
+  OnyxIconButton,
+  OnyxNavBar,
+} from "sit-onyx";
 
 import Sidebar from "@/components/Sidebar/Sidebar.vue";
 import { useDark } from "@vueuse/core";
 import UserMenu from "@/components/UserMenu/UserMenu.vue";
 import { useToDosStore } from "@/stores/todos";
 import { useUserStore } from "@/stores/user";
+import menu from "@sit-onyx/icons/menu.svg?raw";
+import clipboard from "@sit-onyx/icons/clipboard.svg?raw";
 
 const isDark = useDark();
 const isSidebarOpen = ref(true);
@@ -24,37 +32,54 @@ watch(userId, toDosStore?.initialize);
 <template>
   <OnyxAppLayout :model-value="isDark">
     <template #navBar>
-      <OnyxNavBar app-name="My To Do List App" icon>
+      <OnyxNavBar app-name="">
+        <template #appArea>
+          <OnyxIcon :icon="clipboard"></OnyxIcon>
+          <OnyxHeadline class="appHeader" is="h2"
+            >My To Do List App
+          </OnyxHeadline>
+        </template>
         <template #contextArea>
           <UserMenu />
+          <OnyxIcon
+            class="menuIconBtn"
+            :icon="menu"
+            @click="isSidebarOpen = !isSidebarOpen"
+          />
         </template>
       </OnyxNavBar>
     </template>
     <template v-slot:default>
-      <div class="default-content">
+      <div class="defaultContent">
         <Sidebar v-if="isSidebarOpen" v-model="isSidebarOpen"> </Sidebar>
         <RouterView />
       </div>
-      <OnyxButton
-        v-if="!isSidebarOpen"
-        label="Open Sidebar"
-        class="floating-button"
-        @click="isSidebarOpen = !isSidebarOpen"
-      />
     </template>
   </OnyxAppLayout>
 </template>
 
-<style>
-.floating-button {
-  position: sticky;
-  bottom: var(--onyx-spacing-md);
-  left: var(--onyx-spacing-md);
-  z-index: var(--onyx-z-index-notification);
-}
-.default-content {
+<style lang="scss" scoped>
+@use "sit-onyx/breakpoints.scss";
+
+.defaultContent {
   height: 100%;
   display: flex;
   overflow: hidden;
+}
+
+.menuIconBtn {
+  display: none;
+
+  @include breakpoints.screen(max, md) {
+    display: flex;
+  }
+}
+
+.appHeader {
+  display: flex;
+
+  @include breakpoints.screen(max, md) {
+    display: none;
+  }
 }
 </style>

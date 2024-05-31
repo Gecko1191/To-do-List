@@ -29,7 +29,7 @@ function countLabel(count: number) {
     <div class="sidebar-overlay__content">
       <section>
         <OnyxHeadline class="sidebar-overlay__header" is="h2"
-          >My To Do List App
+          >My To-Dos
         </OnyxHeadline>
 
         <OnyxNavItem @click="(href) => router.push(href)" href="/">
@@ -45,12 +45,6 @@ function countLabel(count: number) {
           <OnyxIcon :icon="archive" />
         </OnyxNavItem>
       </section>
-
-      <OnyxButton
-        class="sidebar-overlay__close"
-        label="Close"
-        @click="isOpen = false"
-      />
     </div>
   </div>
 </template>
