@@ -58,6 +58,7 @@ const slots = defineSlots<{
       <div class="header__upperContainer">
         <div>
           <OnyxSelect
+            data-test="orderSelect"
             label="Select"
             listLabel="Order by"
             hideLabel
@@ -67,6 +68,7 @@ const slots = defineSlots<{
           />
         </div>
         <OnyxInput
+          data-test="searchInput"
           class="search"
           v-model="search"
           placeholder="Search for a task..."
@@ -77,10 +79,10 @@ const slots = defineSlots<{
         <slot name="underHeader"></slot>
       </div>
     </div>
-    <div class="toDoItemContainer">
-      <div v-for="toDo in filteredToDos">
+    <div data-test="toDoItemContainer" class="toDoItemContainer">
+      <template v-for="toDo in filteredToDos">
         <slot name="listItem" :search="search" :toDo="toDo"></slot>
-      </div>
+      </template>
     </div>
   </div>
 </template>

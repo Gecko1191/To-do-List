@@ -61,6 +61,7 @@ function onSubmit() {
     ></OnyxButton>
     <div class="addToDo__inputContainer">
       <OnyxInput
+        data-test="addToDoInput"
         v-show="showInput"
         @focusout="onShowHideInput"
         @keydown.enter="onSubmit"

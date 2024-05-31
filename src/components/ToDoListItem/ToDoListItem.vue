@@ -33,7 +33,7 @@ const toDo = computed(() => props.toDo);
     class="toDoItem"
   >
     <OnyxCheckbox
-      data-test-id="completedCheckbox"
+      :data-test="`completedCheckbox-${toDo.id}`"
       v-if="props.onMarkUnMarkCompleted"
       :disabled="props.disableCompletedAndImportant"
       @click="
@@ -46,6 +46,7 @@ const toDo = computed(() => props.toDo);
       hideLabel
     ></OnyxCheckbox>
     <OnyxIconButton
+      :data-test="`importantIconBtn-${toDo.id}`"
       v-if="props.onMarkUnMarkImportant"
       :disabled="props.disableCompletedAndImportant"
       @click="props?.onMarkUnMarkImportant(toDo)"
@@ -63,16 +64,19 @@ const toDo = computed(() => props.toDo);
     </div>
     <div class="actions">
       <OnyxIconButton
+        :data-test="`moveToArchiveBtn-${toDo.id}`"
         v-if="props.onMoveToArchive"
         @click="props.onMoveToArchive(toDo)"
         :icon="archive"
       ></OnyxIconButton>
       <OnyxIconButton
+        :data-test="`moveOutOfArchiveBtn-${toDo.id}`"
         v-if="props.onMoveOutOfArchive"
         @click="props.onMoveOutOfArchive(toDo)"
         :icon="archiveUndo"
       ></OnyxIconButton>
       <OnyxIconButton
+        :data-test="`deleteBtn-${toDo.id}`"
         v-if="props.onDeleteToDo"
         @click="props.onDeleteToDo(toDo)"
         :icon="trash"

@@ -2,29 +2,29 @@
   {
     "userId": 1,
     "id": 1,
-    "title": "toDo",
+    "title": "Archive toDo",
     "completed": false,
-    "isImportant": false
+    "important": false
   },
   {
     "userId": 1,
     "id": 2,
-    "title": "toDo completed",
+    "title": "Archive toDo completed",
     "completed": true,
-    "isImportant": false
+    "important": false
   },
   {
     "userId": 1,
     "id": 3,
-    "title": "toDo important",
+    "title": "Archive toDo important",
     "completed": false,
-    "isImportant": true
+    "important": true
   },
   {
     "userId": 1,
     "id": 4,
-    "title": "abc toDo important and completed",
+    "title": "Archive toDo important and completed",
     "completed": true,
-    "isImportant": true
+    "important": true
   }
 ]
