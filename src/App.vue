@@ -9,7 +9,7 @@ import {
   OnyxNavBar,
 } from "sit-onyx";
 
-import Sidebar from "@/components/Sidebar/Sidebar.vue";
+import Sidebar from "@/components/AppSidebar/AppSidebar.vue";
 import { useDark } from "@vueuse/core";
 import UserMenu from "@/components/UserMenu/UserMenu.vue";
 import { useToDosStore } from "@/stores/todos";

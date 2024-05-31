@@ -80,7 +80,7 @@ const slots = defineSlots<{
       </div>
     </div>
     <div data-test="toDoItemContainer" class="toDoItemContainer">
-      <template v-for="toDo in filteredToDos">
+      <template :key="toDo.id" v-for="toDo in filteredToDos">
         <slot name="listItem" :search="search" :toDo="toDo" />
       </template>
     </div>
