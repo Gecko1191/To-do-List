@@ -1,14 +1,24 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import { ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { OnyxAppLayout, OnyxButton, OnyxNavBar } from "sit-onyx";
 
 import Sidebar from "@/components/Sidebar/Sidebar.vue";
 import { useDark } from "@vueuse/core";
 import UserMenu from "@/components/UserMenu/UserMenu.vue";
+import { useToDosStore } from "@/stores/todos";
+import { useUserStore } from "@/stores/user";
 
 const isDark = useDark();
 const isSidebarOpen = ref(true);
+
+/**
+ * initialize the toDos after the user is loaded.
+ */
+const toDosStore = useToDosStore();
+const userStore = useUserStore();
+const userId = computed(() => userStore.user?.id);
+watch(userId, toDosStore?.initialize);
 </script>
 
 <template>

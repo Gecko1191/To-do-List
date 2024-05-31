@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import ToDoList from "../components/ToDoList/ToDoList.vue";
 import { useToDosStore } from "@/stores/todos";
-import { useUserStore } from "@/stores/user";
-import { computed, watch } from "vue";
 import AddTaskInput from "@/components/AddToDoInput/AddToDoInput.vue";
 import ToDoListItem from "@/components/ToDoListItem/ToDoListItem.vue";
 
 const toDosStore = useToDosStore();
-const userStore = useUserStore();
-const userId = computed(() => userStore.user?.id);
-watch(userId, toDosStore?.initialize);
 </script>
 
 <template>

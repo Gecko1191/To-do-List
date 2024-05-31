@@ -27,8 +27,13 @@ const toDo = computed(() => props.toDo);
 </script>
 
 <template>
-  <div v-if="toDo.title.includes(props.search ?? '')" class="toDoItem">
+  <div
+    :data-test="`toDo-${toDo.id}`"
+    v-if="toDo.title.includes(props.search ?? '')"
+    class="toDoItem"
+  >
     <OnyxCheckbox
+      data-test-id="completedCheckbox"
       v-if="props.onMarkUnMarkCompleted"
       :disabled="props.disableCompletedAndImportant"
       @click="
