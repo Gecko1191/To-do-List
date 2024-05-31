@@ -10,7 +10,7 @@ const toDosStore = useToDosStore();
 
 <template>
   <ToDoList :toDos="toDosStore.importantToDos">
-    <template #underHeader>
+    <template #secondHeader>
       <AddTaskInput flagAsImportant />
     </template>
     <template #listItem="{ search, toDo }">

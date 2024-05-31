@@ -5,18 +5,19 @@ import logout from "@sit-onyx/icons/tool-table.svg?raw";
 import settings from "@sit-onyx/icons/settings.svg?raw";
 
 /**
- * wrapper to load to have all user specific call in one place
+ * wrapper to abstract the user
  */
 const userStore = useUserStore();
 //load the current user
-userStore.getUser();
+userStore.loadUser();
 
 const userMenuOptions = [
   { value: "/settings", label: "Settings", icon: settings },
   { value: "logout", label: "Logout", icon: logout, color: "danger" },
 ] satisfies SelectOption[];
 
-//TODO: more user specific functions could be added here
+//more user specific functions could be added here
+//if we would load a real user we could also improve the store with a loading ref to show a busy indicator
 </script>
 
 <template>
@@ -25,5 +26,3 @@ const userMenuOptions = [
     :options="userMenuOptions"
   />
 </template>
-
-<style lang="scss" scoped></style>

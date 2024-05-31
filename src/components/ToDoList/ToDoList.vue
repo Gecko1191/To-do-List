@@ -46,7 +46,7 @@ const filteredToDos = computed(() => {
 
 const slots = defineSlots<{
   /** area between the list and the header components */
-  underHeader?(): unknown;
+  secondHeader?(): unknown;
   /** the item template that should be rendered */
   listItem?(): unknown;
 }>();
@@ -75,8 +75,8 @@ const slots = defineSlots<{
           type="search"
         />
       </div>
-      <div v-if="slots.underHeader" class="header__lowerContainer">
-        <slot name="underHeader"></slot>
+      <div v-if="slots.secondHeader" class="header__lowerContainer">
+        <slot name="secondHeader"></slot>
       </div>
     </div>
     <div data-test="toDoItemContainer" class="toDoItemContainer">

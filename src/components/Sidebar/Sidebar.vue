@@ -7,10 +7,7 @@ import { useRouter } from "vue-router";
 import { useToDosStore } from "@/stores/todos";
 import { useToDosArchiveStore } from "@/stores/toDosArchive";
 
-defineProps<{ transparent?: boolean }>();
-
 const router = useRouter();
-const isOpen = defineModel<boolean>();
 
 const toDosStore = useToDosStore();
 const toDosArchiveStore = useToDosArchiveStore();

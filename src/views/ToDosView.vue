@@ -9,7 +9,7 @@ const toDosStore = useToDosStore();
 
 <template>
   <ToDoList :toDos="toDosStore.toDos">
-    <template #underHeader>
+    <template #secondHeader>
       <AddTaskInput />
     </template>
     <template #listItem="{ search, toDo }">

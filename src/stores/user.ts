@@ -24,5 +24,5 @@ export const useUserStore = defineStore("user", () => {
       .then((json) => (user.value = json));
   }
 
-  return { user, getUser: loadUser };
+  return { user, loadUser };
 });

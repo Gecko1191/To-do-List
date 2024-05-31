@@ -7,7 +7,7 @@ import type { ToDoEntry } from "@/components/ToDoListItem/types";
 /*
 The store for the To-Do-List entries
 
-@returns the To-Do-List entries and the given crud operations (create, update, delete)
+@returns initialize, toDos, importantToDos, createToDo, deleteToDo, moveToArchive, addToDo, markUnMarkCompleted, markUnMarkImportant, importantToDosCount, toDosCount,
  */
 export const useToDosStore = defineStore("toDos", () => {
   const toDosArchiveStore = useToDosArchiveStore();
@@ -32,6 +32,9 @@ export const useToDosStore = defineStore("toDos", () => {
    */
   const toDosCount = computed(() => toDos?.value?.length ?? 0);
 
+  /**
+   * load the toDos for the current user
+   */
   async function initialize() {
     const userStore = useUserStore();
 
@@ -42,6 +45,11 @@ export const useToDosStore = defineStore("toDos", () => {
       .then((json) => (toDos.value = json));
   }
 
+  /**
+   * create a to do with a given title and to option to add it as an important toDo
+   * @param title
+   * @param important
+   */
   function createToDo(title: string, important?: boolean) {
     /**
      * normally we would call some sort of fetch 'post' to create a new toDo.
