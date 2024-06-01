@@ -22,28 +22,29 @@ function countLabel(count: number) {
 </script>
 
 <template>
-  <div class="sidebar-overlay">
-    <div class="sidebar-overlay__content">
-      <section>
-        <OnyxHeadline class="sidebar-overlay__header" is="h2"
-          >My To-Dos
-        </OnyxHeadline>
-
-        <OnyxNavItem @click="(href) => router.push(href)" href="/">
-          My Tasks {{ countLabel(toDosStore.toDosCount) }}
-          <OnyxIcon :icon="clipboard" />
-        </OnyxNavItem>
-        <OnyxNavItem @click="(href) => router.push(href)" href="/important">
-          Important Tasks {{ countLabel(toDosStore.importantToDosCount) }}
-          <OnyxIcon :icon="flag" />
-        </OnyxNavItem>
-        <OnyxNavItem @click="(href) => router.push(href)" href="/archive">
-          Archive {{ countLabel(toDosArchiveStore.toDosCount) }}
-          <OnyxIcon :icon="archive" />
-        </OnyxNavItem>
-      </section>
+  <Transition appear>
+    <div class="sidebar-overlay">
+      <div class="sidebar-overlay__content">
+        <section>
+          <OnyxHeadline class="sidebar-overlay__header" is="h2"
+            >My To-Dos
+          </OnyxHeadline>
+          <OnyxNavItem @click="(href) => router.push(href)" href="/">
+            My Tasks {{ countLabel(toDosStore.toDosCount) }}
+            <OnyxIcon :icon="clipboard" />
+          </OnyxNavItem>
+          <OnyxNavItem @click="(href) => router.push(href)" href="/important">
+            Important Tasks {{ countLabel(toDosStore.importantToDosCount) }}
+            <OnyxIcon :icon="flag" />
+          </OnyxNavItem>
+          <OnyxNavItem @click="(href) => router.push(href)" href="/archive">
+            Archive {{ countLabel(toDosArchiveStore.toDosCount) }}
+            <OnyxIcon :icon="archive" />
+          </OnyxNavItem>
+        </section>
+      </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <style lang="scss" scoped>
@@ -76,5 +77,14 @@ function countLabel(count: number) {
   @include breakpoints.screen(max, md) {
     position: absolute;
   }
+}
+//transition styles
+.v-enter-active,
+.v-leave-active {
+  transition: left 0.75s;
+  left: 0;
+}
+.v-enter-from {
+  left: -250px;
 }
 </style>

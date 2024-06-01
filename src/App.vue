@@ -1,21 +1,15 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import { computed, ref, watch } from "vue";
-import {
-  OnyxAppLayout,
-  OnyxHeadline,
-  OnyxIcon,
-  OnyxIconButton,
-  OnyxNavBar,
-} from "sit-onyx";
+import { OnyxAppLayout, OnyxHeadline, OnyxIcon, OnyxNavBar } from "sit-onyx";
 
-import Sidebar from "@/components/AppSidebar/AppSidebar.vue";
 import { useDark } from "@vueuse/core";
 import UserMenu from "@/components/UserMenu/UserMenu.vue";
 import { useToDosStore } from "@/stores/todos";
 import { useUserStore } from "@/stores/user";
 import menu from "@sit-onyx/icons/menu.svg?raw";
 import clipboard from "@sit-onyx/icons/clipboard.svg?raw";
+import AppSidebar from "@/components/AppSidebar/AppSidebar.vue";
 
 const isDark = useDark();
 const isSidebarOpen = ref(true);
@@ -51,7 +45,7 @@ watch(userId, toDosStore?.initialize);
     </template>
     <template v-slot:default>
       <div class="defaultContent">
-        <Sidebar v-if="isSidebarOpen" v-model="isSidebarOpen" />
+        <AppSidebar v-if="isSidebarOpen" />
         <RouterView />
       </div>
     </template>

@@ -115,6 +115,7 @@ const toDo = computed(() => props.toDo);
     text-decoration: line-through;
   }
 }
+//transition styles
 .v-enter-active,
 .v-leave-active {
   transition: opacity 1s ease;
