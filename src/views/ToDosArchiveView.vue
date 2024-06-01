@@ -10,6 +10,7 @@ const archiveStore = useToDosArchiveStore();
   <ToDoList :to-dos="archiveStore.toDos">
     <template #listItem="{ search, toDo }">
       <ToDoListItem
+        :key="toDo.id"
         :disableCompletedAndImportant="true"
         :onMarkUnMarkImportant="true"
         :onMarkUnMarkCompleted="true"

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { OnyxButton, OnyxHeadline, OnyxIcon, OnyxNavItem } from "sit-onyx";
+import { OnyxHeadline, OnyxIcon, OnyxNavItem } from "sit-onyx";
 import clipboard from "@sit-onyx/icons/clipboard.svg?raw";
 import archive from "@sit-onyx/icons/archive.svg?raw";
 import flag from "@sit-onyx/icons/flag-1.svg?raw";
@@ -29,16 +29,31 @@ function countLabel(count: number) {
           <OnyxHeadline class="sidebar-overlay__header" is="h2"
             >My To-Dos
           </OnyxHeadline>
-          <OnyxNavItem @click="(href) => router.push(href)" href="/">
-            My Tasks {{ countLabel(toDosStore.toDosCount) }}
+          <OnyxNavItem
+            class="activeItem"
+            @click="(href) => router.push(href)"
+            href="/"
+          >
+            <text :class="{ active: router.currentRoute.value.name === 'home' }"
+              >My Tasks {{ countLabel(toDosStore.toDosCount) }}</text
+            >
             <OnyxIcon :icon="clipboard" />
           </OnyxNavItem>
           <OnyxNavItem @click="(href) => router.push(href)" href="/important">
-            Important Tasks {{ countLabel(toDosStore.importantToDosCount) }}
+            <text
+              :class="{
+                active: router.currentRoute.value.name === 'important',
+              }"
+              >Important Tasks
+              {{ countLabel(toDosStore.importantToDosCount) }}</text
+            >
             <OnyxIcon :icon="flag" />
           </OnyxNavItem>
           <OnyxNavItem @click="(href) => router.push(href)" href="/archive">
-            Archive {{ countLabel(toDosArchiveStore.toDosCount) }}
+            <text
+              :class="{ active: router.currentRoute.value.name === 'archive' }"
+              >Archive {{ countLabel(toDosArchiveStore.toDosCount) }}</text
+            >
             <OnyxIcon :icon="archive" />
           </OnyxNavItem>
         </section>
@@ -49,7 +64,10 @@ function countLabel(count: number) {
 
 <style lang="scss" scoped>
 @use "sit-onyx/breakpoints.scss";
-
+.active {
+  color: var(--onyx-color-text-icons-secondary-intense);
+  font-weight: bold;
+}
 .sidebar-overlay {
   height: 100%;
   z-index: var(--onyx-z-index-page-overlay);

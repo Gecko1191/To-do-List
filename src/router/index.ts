@@ -1,12 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import ToDosView from "../views/ToDosView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      name: "ToDos",
+      name: "home",
       component: () => import("../views/ToDosView.vue"),
     },
     {

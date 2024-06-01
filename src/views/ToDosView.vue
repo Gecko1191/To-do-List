@@ -14,6 +14,7 @@ const toDosStore = useToDosStore();
     </template>
     <template #listItem="{ search, toDo }">
       <ToDoListItem
+        :key="toDo.id"
         :onMarkUnMarkImportant="toDosStore.markUnMarkImportant"
         :onMoveToArchive="toDosStore.moveToArchive"
         :onMarkUnMarkCompleted="toDosStore.markUnMarkCompleted"
