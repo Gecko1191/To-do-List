@@ -43,7 +43,7 @@ const slots = defineSlots<{
   /** area between the list and the header components */
   secondHeader?(): unknown;
   /** the item template that should be rendered */
-  listItem?({ search, toDo }: {search: string, toDo: ToDoEntry}): unknown;
+  listItem?({ search, toDo }: { search: string; toDo: ToDoEntry }): unknown;
 }>();
 </script>
 
