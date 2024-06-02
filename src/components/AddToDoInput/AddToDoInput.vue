@@ -53,7 +53,7 @@ function onSubmit() {
   <div class="addToDo">
     <OnyxButton
       v-show="!showInput"
-      @click="onShowHideInput"
+      @click="onShowHideInput($event)"
       class="addToDo__btn"
       color="neutral"
       :icon="plus"
@@ -61,6 +61,8 @@ function onSubmit() {
     />
     <div class="addToDo__inputContainer">
       <OnyxInput
+        label="Add a task"
+        hideLabel
         data-test="addToDoInput"
         v-show="showInput"
         @focusout="onShowHideInput"
@@ -71,6 +73,7 @@ function onSubmit() {
         type="text"
       />
       <OnyxIconButton
+        label="Add a Task"
         name="addToDoInputBtn"
         @focusout="onShowHideInput"
         v-show="showInput"

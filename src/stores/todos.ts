@@ -44,6 +44,16 @@ export const useToDosStore = defineStore("toDos", () => {
       .then((response) => response.json())
       .then((json) => (toDos.value = json));
   }
+  /**
+   * needed out of demo purposes to calc a new ToDo id
+   */
+  function calcId() {
+    let id = 0;
+    do {
+      id++;
+    } while (toDos.value?.find((toDo) => toDo.id === id));
+    return id;
+  }
 
   /**
    * create a to do with a given title and to option to add it as an important toDo
@@ -57,17 +67,6 @@ export const useToDosStore = defineStore("toDos", () => {
      */
     const userStore = useUserStore();
     if (userStore.user?.id) {
-      /**
-       * needed out of demo purposes
-       */
-      function calcId() {
-        let id = 0;
-        do {
-          id++;
-        } while (toDos.value?.find((toDo) => toDo.id === id));
-        return id;
-      }
-
       /**
        * use unshift to add entry on top of the list
        */

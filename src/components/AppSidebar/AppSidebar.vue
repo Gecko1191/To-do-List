@@ -30,6 +30,7 @@ function countLabel(count: number) {
             >My To-Dos
           </OnyxHeadline>
           <OnyxNavItem
+            label="My Tasks"
             class="activeItem"
             @click="(href) => router.push(href)"
             href="/"
@@ -39,7 +40,11 @@ function countLabel(count: number) {
             >
             <OnyxIcon :icon="clipboard" />
           </OnyxNavItem>
-          <OnyxNavItem @click="(href) => router.push(href)" href="/important">
+          <OnyxNavItem
+            label="Important Tasks"
+            @click="(href) => router.push(href)"
+            href="/important"
+          >
             <text
               :class="{
                 active: router.currentRoute.value.name === 'important',
@@ -49,7 +54,11 @@ function countLabel(count: number) {
             >
             <OnyxIcon :icon="flag" />
           </OnyxNavItem>
-          <OnyxNavItem @click="(href) => router.push(href)" href="/archive">
+          <OnyxNavItem
+            label="Archive"
+            @click="(href) => router.push(href)"
+            href="/archive"
+          >
             <text
               :class="{ active: router.currentRoute.value.name === 'archive' }"
               >Archive {{ countLabel(toDosArchiveStore.toDosCount) }}</text

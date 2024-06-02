@@ -43,7 +43,7 @@ const slots = defineSlots<{
   /** area between the list and the header components */
   secondHeader?(): unknown;
   /** the item template that should be rendered */
-  listItem?(): unknown;
+  listItem?({ search, toDo }: {search: string, toDo: ToDoEntry}): unknown;
 }>();
 </script>
 
@@ -63,6 +63,8 @@ const slots = defineSlots<{
           />
         </div>
         <OnyxInput
+          label="Search for a task..."
+          hideLabel
           data-test="searchInput"
           class="search"
           v-model="search"
@@ -76,7 +78,12 @@ const slots = defineSlots<{
     </div>
     <div data-test="toDoItemContainer" class="toDoItemContainer">
       <template v-for="toDo in filteredToDos">
-        <slot name="listItem" :search="search" :toDo="toDo" />
+        <slot
+          v-if="slots.listItem"
+          name="listItem"
+          :search="search"
+          :toDo="toDo"
+        />
       </template>
     </div>
   </div>
