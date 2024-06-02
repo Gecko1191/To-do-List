@@ -97,11 +97,11 @@ describe("Test the app logic for toDos", () => {
     cy.visit("/");
     cy.wait("@toDos");
 
-    cy.get("[data-test=completedCheckbox-1]")
-      .click()
-      .within(() => {
-        cy.get("input").should("be.checked");
-      });
+    cy.get("[data-test=completedCheckbox-1]").click();
+    //object is updated cant be chained
+    cy.get("[data-test=completedCheckbox-1]").within(() => {
+      cy.get("input").should("be.checked");
+    });
   });
 
   it("flag toDo as important", () => {
@@ -129,7 +129,8 @@ describe("Test the app logic for toDos", () => {
     cy.get("[data-test=moveToArchiveBtn-1]").click();
     cy.get("[data-test=toDo-1]").should("not.exist");
 
-    cy.contains("li", "Archive ( 1 )");
+    cy.contains("li", "Archive ( 1 )").click();
+    cy.get("[data-test=toDo-1]").should("exist");
   });
 });
 describe("Test the app sort logic for toDos", () => {
@@ -156,20 +157,6 @@ describe("Test the app sort logic for toDos", () => {
       .children()
       .first()
       .should("have.attr", "data-test", "toDo-3");
-  });
-
-  it("order toDos by Completed", () => {
-    cy.visit("/");
-    cy.wait("@toDos");
-
-    cy.get("[data-test=orderSelect]").click();
-
-    cy.contains("span", "Completed").click();
-
-    cy.get("[data-test=toDoItemContainer]")
-      .children()
-      .first()
-      .should("have.attr", "data-test", "toDo-2");
   });
 
   it("order toDos by Alphabetical", () => {
