@@ -1,7 +1,7 @@
 # To-do-list
 
 This is a simple Template for a To-do-list app without any backend services.
-To persist the data eighter backend services would be needed or the application stores need to be extended to use the local storage 
+To persist the data either a backend service would be needed or the application stores need to be extended to use the local storage 
 
 ## Project Setup
 
@@ -25,16 +25,6 @@ npm run build
 
 ```sh
 npm run test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-npm run build
-npm run test:e2e
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
