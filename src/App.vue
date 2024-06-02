@@ -7,8 +7,8 @@ import { useDark } from "@vueuse/core";
 import UserMenu from "@/components/UserMenu/UserMenu.vue";
 import { useToDosStore } from "@/stores/todos";
 import { useUserStore } from "@/stores/user";
-import menu from "@sit-onyx/icons/menu.svg?raw";
-import clipboard from "@sit-onyx/icons/clipboard.svg?raw";
+import menu from "@sit-onyx/icons/menu.svg";
+import clipboard from "@sit-onyx/icons/clipboard.svg";
 import AppSidebar from "@/components/AppSidebar/AppSidebar.vue";
 
 const isDark = useDark();

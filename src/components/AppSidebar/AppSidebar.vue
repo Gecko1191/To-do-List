@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { OnyxHeadline, OnyxIcon, OnyxNavItem } from "sit-onyx";
-import clipboard from "@sit-onyx/icons/clipboard.svg?raw";
-import archive from "@sit-onyx/icons/archive.svg?raw";
-import flag from "@sit-onyx/icons/flag-1.svg?raw";
+import clipboard from "@sit-onyx/icons/clipboard.svg";
+import archive from "@sit-onyx/icons/archive.svg";
+import flag from "@sit-onyx/icons/flag-1.svg";
 import { useRouter } from "vue-router";
 import { useToDosStore } from "@/stores/todos";
 import { useToDosArchiveStore } from "@/stores/toDosArchive";

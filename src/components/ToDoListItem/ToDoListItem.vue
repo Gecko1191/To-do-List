@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { useToDosStore } from "@/stores/todos";
 import { OnyxCheckbox, OnyxIconButton } from "sit-onyx";
 import type { ToDoEntry } from "@/components/ToDoListItem/types";
-import flag from "@sit-onyx/icons/flag-1.svg?raw";
-import archive from "@sit-onyx/icons/archive.svg?raw";
-import archiveUndo from "@sit-onyx/icons/archive-undo.svg?raw";
-import trash from "@sit-onyx/icons/trash.svg?raw";
+import flag from "@sit-onyx/icons/flag-1.svg";
+import archive from "@sit-onyx/icons/archive.svg";
+import archiveUndo from "@sit-onyx/icons/archive-undo.svg";
+import trash from "@sit-onyx/icons/trash.svg";
 import { computed } from "vue";
 
 const props = defineProps<{

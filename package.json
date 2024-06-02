@@ -18,9 +18,10 @@
   },
   "dependencies": {
     "@rushstack/eslint-patch": "^1.10.3",
+    "@sit-onyx/icons": "^0.0.0",
     "@vueuse/core": "^10.10.0",
     "pinia": "^2.1.7",
-    "sit-onyx": "^1.0.0-alpha.116",
+    "sit-onyx": "^1.0.0-alpha.117",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
