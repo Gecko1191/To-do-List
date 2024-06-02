@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { OnyxUserMenu, type SelectOption } from "sit-onyx";
 import { useUserStore } from "@/stores/user";
-import logout from "@sit-onyx/icons/tool-table.svg";
-import settings from "@sit-onyx/icons/settings.svg";
+import logout from "@sit-onyx/icons/tool-table.svg?raw";
+import settings from "@sit-onyx/icons/settings.svg?raw";
 
 /**
  * wrapper to abstract the user

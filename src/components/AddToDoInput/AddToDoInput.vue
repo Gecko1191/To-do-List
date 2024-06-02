@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import plus from "@sit-onyx/icons/plus.svg";
+import plus from "@sit-onyx/icons/plus.svg?raw";
 import { nextTick, ref } from "vue";
 import { OnyxInput, OnyxButton, OnyxIconButton } from "sit-onyx";
 import { useToDosStore } from "@/stores/todos";
