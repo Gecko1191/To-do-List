@@ -51,17 +51,15 @@ const slots = defineSlots<{
   <div class="toDosContainer padding">
     <div class="header">
       <div class="header__upperContainer">
-        <div>
-          <OnyxSelect
-            data-test="orderSelect"
-            label="Select"
-            listLabel="Order by"
-            hideLabel
-            v-model="orderBy"
-            :options="orderSelectOptions"
-            placeholder="Order by..."
-          />
-        </div>
+        <OnyxSelect
+          data-test="orderSelect"
+          label="Select"
+          listLabel="Order by"
+          hideLabel
+          v-model="orderBy"
+          :options="orderSelectOptions"
+          placeholder="Order by..."
+        />
         <OnyxInput
           label="Search for a task..."
           hideLabel
